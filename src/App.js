@@ -19,13 +19,13 @@ const SAMPLE_FALSHCARDS = [
   },
   {
     id: 2,
-    question: 'is this real life',
+    question: 'Is this real life',
     answer: 'it is just fantasy',
     options: ['it is just fantasy', 'yes', 'no', 'i am your father'],
   },
   {
     id: 3,
-    question: 'is trump stupid af?',
+    question: 'Is trump stupid af?',
     answer: 'FUCK YES!',
     options: ['YES', 'FUCK YES!', 'yes', 'yeah'],
   },
