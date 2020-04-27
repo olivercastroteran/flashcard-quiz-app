@@ -3,7 +3,7 @@ import List from './components/List';
 import axios from 'axios';
 
 function App() {
-  const [flashcards, setFlashcards] = useState(SAMPLE_FALSHCARDS);
+  const [flashcards, setFlashcards] = useState([]);
   const [categories, setCategories] = useState([]);
   const categoryEl = useRef();
   const amountEl = useRef();
@@ -14,25 +14,7 @@ function App() {
     });
   }, []);
 
-  useEffect(() => {
-    axios.get('https://opentdb.com/api.php?amount=10').then((res) => {
-      setFlashcards(
-        res.data.results.map((questionItem, index) => {
-          const answer = decodeString(questionItem.correct_answer);
-          const options = [
-            ...questionItem.incorrect_answers.map((ans) => decodeString(ans)),
-            answer,
-          ];
-          return {
-            id: `${index}-${Date.now()}`,
-            question: decodeString(questionItem.question),
-            answer: questionItem.correct_answer,
-            options: options.sort(() => Math.random() - 0.5),
-          };
-        })
-      );
-    });
-  }, []);
+  useEffect(() => {}, []);
 
   function decodeString(str) {
     const textArea = document.createElement('textarea');
@@ -42,6 +24,30 @@ function App() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    axios
+      .get('https://opentdb.com/api.php', {
+        params: {
+          amount: amountEl.current.value,
+          category: categoryEl.current.value,
+        },
+      })
+      .then((res) => {
+        setFlashcards(
+          res.data.results.map((questionItem, index) => {
+            const answer = decodeString(questionItem.correct_answer);
+            const options = [
+              ...questionItem.incorrect_answers.map((ans) => decodeString(ans)),
+              answer,
+            ];
+            return {
+              id: `${index}-${Date.now()}`,
+              question: decodeString(questionItem.question),
+              answer: questionItem.correct_answer,
+              options: options.sort(() => Math.random() - 0.5),
+            };
+          })
+        );
+      });
   }
 
   return (
@@ -80,26 +86,5 @@ function App() {
     </>
   );
 }
-
-const SAMPLE_FALSHCARDS = [
-  {
-    id: 1,
-    question: 'What is the meaning of life?',
-    answer: '42',
-    options: ['find love', 'money', '42', 'food'],
-  },
-  {
-    id: 2,
-    question: 'Is this real life',
-    answer: 'it is just fantasy',
-    options: ['it is just fantasy', 'yes', 'no', 'i am your father'],
-  },
-  {
-    id: 3,
-    question: 'Is trump stupid af?',
-    answer: 'FUCK YES!',
-    options: ['YES', 'FUCK YES!', 'yes', 'yeah'],
-  },
-];
 
 export default App;
