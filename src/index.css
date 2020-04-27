@@ -19,6 +19,48 @@ body {
   margin: 1rem 5%;
 }
 
+.header {
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem;
+}
+
+.btn {
+  cursor: pointer;
+  color: #feb221;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0.75rem 1rem;
+  border: 1px solid #feb221;
+  border-radius: 50px;
+  background-color: transparent;
+  transition: all 0.3s;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn:hover {
+  color: #fff;
+  background-color: #feb221;
+  border: 1px solid #feb221;
+}
+
+.form-group > label {
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
 .card-grid {
   display: grid;
   align-items: center;
